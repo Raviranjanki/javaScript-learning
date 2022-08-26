@@ -14,5 +14,5 @@ chessBoard = () => {
     }
     table.appendChild(tr);
   }
-}
+};
 chessBoard();
