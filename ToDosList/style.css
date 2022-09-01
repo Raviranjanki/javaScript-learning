@@ -1,0 +1,60 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  justify-content: center;
+}
+h1 {
+  font-style: italic;
+}
+button,
+select {
+  margin: 10px;
+  width: fit-content;
+  font-size: 1rem;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  background-color: cadetblue;
+}
+button,
+textarea,
+select {
+  outline: none;
+}
+main {
+  padding: 10px;
+  text-align: center;
+}
+li {
+  padding-left: 10px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  border: 1px solid grey;
+  margin: 10px 0;
+  border-radius: 5px;
+  list-style-type: none;
+}
+li button {
+    background-color: crimson;
+}
+.flex-row {
+  display: flex;
+  justify-content: space-between;
+}
+.add_task {
+  display: flex;
+  flex-direction: column;
+}
+.priority {
+  width: fit-content;
+  margin: 10px;
+  align-self: flex-start;
+}

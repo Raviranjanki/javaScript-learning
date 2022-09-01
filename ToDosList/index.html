@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+
+  <body>
+    <main>
+      <h1>ToDo's List</h1>
+      <div class="add_task">
+        <textarea
+          id="task"
+          placeholder="Enter your task here..."
+          cols="100"
+          rows="10"
+          required
+        ></textarea>
+        <div class="flex-row">
+          <select name="priority" class="priority" id="js_priority">
+            <option value="1">Low</option>
+            <option value="2">Normal</option>
+            <option value="3">High</option>
+          </select>
+          <button
+            onclick="tasks.get(task.value.trim(), Number(js_priority.value))"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+      <ul id="js-show-task"></ul>
+      <button onclick="tasks.ascSort()">Asc Sort</button>
+      <button onclick="tasks.descSort()">Desc Sort</button>
+    </main>
+    <script src="./script.js"></script>
+  </body>
+</html>
