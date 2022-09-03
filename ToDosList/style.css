@@ -42,11 +42,11 @@ li {
   border-radius: 5px;
   list-style-type: none;
 }
-li button:last-child{
+li button:last-child {
   color: crimson;
 }
 
-li button{
+li button {
   font-size: 1.2rem;
   background-color: transparent;
   color: rgb(120, 135, 136);
