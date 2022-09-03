@@ -28,15 +28,11 @@ const tasks = {
     }
 
     this.items.push(this.task);
-    this.render(this.task);
+    this.render();
   },
-  render: function (task) {
+  render: function () {
     this.element.innerHTML = "";
-    let f_index = 1;
-    let l_index = this.items.length;
-    
     this.items.forEach((item) => {
-      f_index = this.items.indexOf(item);
       const li = document.createElement("li");
       const p = document.createElement("p");
       const div = document.createElement("div");
@@ -68,10 +64,10 @@ const tasks = {
         p.style.textDecoration = "line-through";
       }
 
-      if (f_index == 0) {
+      if (this.items.indexOf(item) == 0) {
         up.style.visibility = "hidden";
       }
-      if (l_index - 1 == f_index) {
+      if (this.items.length - 1 == this.items.indexOf(item)) {
         down.style.visibility = "hidden";
       }
 
@@ -109,7 +105,7 @@ const tasks = {
         i = -1;
       }
     }
-    this.render(items);
+    this.render();
   },
   descSort: function () {
     const items = this.items;
@@ -121,17 +117,7 @@ const tasks = {
         i = -1;
       }
     }
-    this.render(items);
-  },
-
-  moveDown: function (current_id) {
-    for (let i = 0; i < this.items.length - 1; i++) {
-      if (current_id == this.items[i].id) {
-        [this.items[i], this.items[i + 1]] = [this.items[i + 1], this.items[i]];
-        break;
-      }
-    }
-    this.render([]);
+    this.render();
   },
   moveUp: function (current_id) {
     for (let i = 1; i < this.items.length; i++) {
@@ -140,7 +126,16 @@ const tasks = {
         break;
       }
     }
-    this.render([]);
+    this.render();
+  },
+  moveDown: function (current_id) {
+    for (let i = 0; i < this.items.length - 1; i++) {
+      if (current_id == this.items[i].id) {
+        [this.items[i], this.items[i + 1]] = [this.items[i + 1], this.items[i]];
+        break;
+      }
+    }
+    this.render();
   },
 };
 
