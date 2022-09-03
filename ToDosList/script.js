@@ -34,35 +34,30 @@ const tasks = {
     this.element.innerHTML = "";
     let f_index = 1;
     let l_index = this.items.length;
+    
     this.items.forEach((item) => {
       f_index = this.items.indexOf(item);
       const li = document.createElement("li");
       const p = document.createElement("p");
-      const btn_delete = document.createElement("button");
-      btn_delete.textContent = "Delete";
       const div = document.createElement("div");
       const up = document.createElement("button");
-      up.innerHTML = `<i class="fa-solid fa-angle-up"></i>`;
       const down = document.createElement("button");
-      down.innerHTML = `<i class="fa-solid fa-angle-down"></i>`;
-      p.innerText = item.desc;
-
+      const btn_delete = document.createElement("button");
       const btn_sub_desc = document.createElement("button");
+
+      p.innerText = item.desc;
+      up.innerHTML = `<i class="fa-solid fa-angle-up"></i>`;
+      down.innerHTML = `<i class="fa-solid fa-angle-down"></i>`;
+      btn_delete.textContent = "Delete";
       btn_sub_desc.innerText = "Add";
 
       btn_sub_desc.onclick = () => {
         this.subDesc(item, p);
         btn_sub_desc.style.display = "none";
       };
-      btn_delete.onclick = () => {
-        this.delete(p, item);
-      };
-      up.onclick = () => {
-        this.moveUp(item.id);
-      };
-      down.onclick = () => {
-        this.moveDown(item.id);
-      };
+      btn_delete.onclick = () => this.delete(p, item);
+      up.onclick = () => this.moveUp(item.id);
+      down.onclick = () => this.moveDown(item.id);
 
       if (item.subDesc != undefined) {
         const sub_desc = document.createElement("p");
@@ -88,12 +83,11 @@ const tasks = {
   subDesc: function (item, p) {
     const sub_desc = document.createElement("textarea");
     const btn_save = document.createElement("button");
+    let index = this.items.indexOf(item);
 
     btn_save.textContent = "Save";
     sub_desc.style.display = "block";
     p.append(sub_desc, btn_save);
-
-    let index = this.items.indexOf(item);
 
     btn_save.onclick = () => {
       this.childTask = { desc: sub_desc.value };
