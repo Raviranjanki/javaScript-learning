@@ -87,7 +87,6 @@ const tasks = {
       up.onclick = () => this.moveUp(item.id, items);
       down.onclick = () => this.moveDown(item.id, items);
 
-      
       wrap.append(p, div);
       li.append(wrap);
       ul.appendChild(li);
