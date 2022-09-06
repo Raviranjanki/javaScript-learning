@@ -5,6 +5,7 @@
 body {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 h1 {
   font-style: italic;
@@ -27,31 +28,42 @@ select {
   outline: none;
   resize: none;
 }
+select {
+  max-width: 180px;
+}
+select option {
+  border-radius: 5px;
+}
+.parent {
+  background-color: rgb(61, 65, 71);
+}
+
 main {
   padding: 10px;
+  text-align: center;
 }
-.list {
-  padding-left: 10px;
-  list-style-type: disc;
-  text-align: left; 
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  border-radius: 5px;
+.order{
+  background-color: #17a2b8;
+}
+.add {
+  background-color: #28a745;
 }
 
 li{
-  margin-left: 40px;
+  text-align: left;
+  margin: 10px 15px;
+  padding: 0 10px;
   justify-content: space-between;
   font-size: 1.2rem;
   border-radius: 5px;
+  border: 1px solid grey;
+  list-style-type: none;
 }
-.list button:last-child {
+.wrap-content button:last-child {
   color: crimson;
 }
 
-.list button {
+.wrap-content button {
   font-size: 1.2rem;
   background-color: transparent;
   color: rgb(120, 135, 136);
@@ -69,4 +81,10 @@ li{
   width: fit-content;
   margin: 10px;
   align-self: flex-start;
+}
+.wrap-content {
+  display: flex;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
 }

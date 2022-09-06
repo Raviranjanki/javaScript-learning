@@ -32,16 +32,19 @@
             <option value="2">Normal</option>
             <option value="3">High</option>
           </select>
+          <select name="parent" class="parent" id="parent">
+            <option value="1">Select Parent</option>
+          </select>
           <button
-            onclick="tasks.get(task.value.trim(), Number(js_priority.value))"
+            onclick="tasks.get(task.value.trim(), Number(js_priority.value))" class="add"
           >
             Add
           </button>
         </div>
       </div>
       <ul id="js-show-task"></ul>
-      <button onclick="tasks.ascSort()">Asc Sort</button>
-      <button onclick="tasks.descSort()">Desc Sort</button>
+      <button class="order" onclick="tasks.ascSort()">Asc Sort</button>
+      <button class="order" onclick="tasks.descSort()">Desc Sort</button>
     </main>
     <script src="./script.js"></script>
   </body>

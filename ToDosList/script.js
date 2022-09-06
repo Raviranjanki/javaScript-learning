@@ -6,18 +6,18 @@ const tasks = {
     desc: "desc",
     subDesc: [],
     weight: 1,
-  },
-  childTask: {
-    desc: "",
+    parent: false,
   },
   element: document.getElementById("js-show-task"),
-  get: function (desc, weight, childTask) {
+  select: document.getElementById("parent"),
+  get: function (desc, weight) {
     this.task = {
       id: this.items.length,
       isDeleted: false,
       desc: desc,
       weight: weight,
       subDesc: [],
+      parent: false,
     };
     this.add();
   },
@@ -26,87 +26,78 @@ const tasks = {
       alert("Please enter your task!");
       return;
     }
+    let selectedValue = document.getElementById("parent").value;
 
-    this.items.push(this.task);
+    if (selectedValue == 1) {
+      const select_option = document.createElement("option");
+      let option_text = this.task.desc;
+      select_option.textContent = option_text;
+      this.select.appendChild(select_option);
+      this.task.parent = true;
+      this.items.push(this.task);
+      this.render();
+      return;
+    }
+
+    let index = this.items.findIndex((x) => x.desc === selectedValue);
+    this.items[index].subDesc.push(this.task);
     this.render();
+  },
+  selectValue: function () {
+    var x = document.getElementById("parent").value;
+    return x;
   },
   render: function () {
     this.element.innerHTML = "";
-    this.items.forEach((item) => {
-      const li = document.createElement("div");
-      const p = document.createElement("p");
+    this.element.append(this.extractValue(this.items));
+  },
+  extractValue: function (items) {
+    const ul = document.createElement("ul");
+    items.forEach((item) => {
+      const li = document.createElement("li");
+      const p = document.createElement("span");
       const div = document.createElement("div");
-      const div2 = document.createElement("div");
+      const wrap = document.createElement("div");
       const up = document.createElement("button");
       const down = document.createElement("button");
       const btn_delete = document.createElement("button");
-      const btn_sub_desc = document.createElement("button");
 
       p.innerText = item.desc;
-      up.innerHTML = `<i class="fa-solid fa-angle-up"></i>`;
-      down.innerHTML = `<i class="fa-solid fa-angle-down"></i>`;
+      if (item.parent == true) {
+        up.innerHTML = `<i class="fa-solid fa-angle-up"></i>`;
+        down.innerHTML = `<i class="fa-solid fa-angle-down"></i>`;
+        div.append(up, down, btn_delete);
+      }
+      div.append(btn_delete);
       btn_delete.textContent = "Delete";
-      btn_sub_desc.innerText = "Add";
-      li.className = "list";
-
-      btn_sub_desc.onclick = () => {
-        const sub_desc = document.createElement("textarea");
-        const btn_save = document.createElement("button");
-        const btn_cancel = document.createElement("button");
-        let index = this.items.indexOf(item);
-
-        div.style.display = "none";
-        btn_save.textContent = "Save";
-        btn_cancel.textContent = "Cancel";
-        sub_desc.style.display = "block";
-        li.append(sub_desc, btn_save, btn_cancel);
-
-        btn_save.onclick = () => {
-          this.childTask = { desc: sub_desc.value };
-          this.items[index].subDesc.push(sub_desc.value);
-          div.style.display = "flex";
-          this.render();
-        };
-
-        btn_cancel.onclick = () => {
-          sub_desc.style.display = "none";
-          btn_save.style.display = "none";
-          btn_cancel.style.display = "none";
-          div.style.display = "flex";
-        };
-
-      };
-
-      btn_delete.onclick = () => this.delete(p, item);
-      up.onclick = () => this.moveUp(item.id);
-      down.onclick = () => this.moveDown(item.id);
+      wrap.className = "wrap-content";
 
       if (item.isDeleted) {
         p.style.textDecoration = "line-through";
       }
 
-      if (this.items.indexOf(item) == 0) {
+      if (items.indexOf(item) == 0) {
         up.style.visibility = "hidden";
       }
-      if (this.items.length - 1 == this.items.indexOf(item)) {
+
+      if (items.length - 1 == items.indexOf(item)) {
         down.style.visibility = "hidden";
       }
+      btn_delete.onclick = () => this.delete(p, item);
+      up.onclick = () => this.moveUp(item.id, items);
+      down.onclick = () => this.moveDown(item.id, items);
 
-      div.append(btn_sub_desc, up, down, btn_delete);
-      li.append(p, div);
-      div2.append(li);
-      if (Array.isArray(item.subDesc)) {
-        const ul = document.createElement("ul");
-        item.subDesc.forEach((value) => {
-          const sli = document.createElement("li");
-          sli.textContent = value;
-          ul.append(sli);
-          div2.append(ul);
-        });
+      
+      wrap.append(p, div);
+      li.append(wrap);
+      ul.appendChild(li);
+
+      if (Array.isArray(item.subDesc) && item.parent == true) {
+        let childList = this.extractValue(item.subDesc);
+        li.appendChild(childList);
       }
-      this.element.appendChild(div2);
     });
-
+    return ul;
   },
   delete: function (item, task) {
     task.isDeleted = true;
@@ -136,16 +127,17 @@ const tasks = {
     }
     this.render();
   },
-  moveUp: function (current_id) {
-    for (let i = 1; i < this.items.length; i++) {
-      if (current_id == this.items[i].id) {
-        [this.items[i], this.items[i - 1]] = [this.items[i - 1], this.items[i]];
+  moveUp: function (current_id, items) {
+    for (let i = 1; i < items.length; i++) {
+      if (current_id == items[i].id) {
+        [items[i], items[i - 1]] = [items[i - 1], items[i]];
         break;
       }
     }
-    this.render();
+
+    this.render(items);
   },
-  moveDown: function (current_id) {
+  moveDown: function (current_id, items) {
     for (let i = 0; i < this.items.length - 1; i++) {
       if (current_id == this.items[i].id) {
         [this.items[i], this.items[i + 1]] = [this.items[i + 1], this.items[i]];
@@ -155,8 +147,3 @@ const tasks = {
     this.render();
   },
 };
-
-tasks.get("ravi", 1);
-tasks.get("ravi ranjan", 2);
-tasks.get("ravi pal", 1);
-tasks.get("ravi kamal", 3);
