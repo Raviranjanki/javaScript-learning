@@ -4,7 +4,7 @@ const tasks = {
     id: 1,
     isDeleted: false,
     desc: "desc",
-    subDesc: "subdesc",
+    subDesc: [],
     weight: 1,
   },
   childTask: {
@@ -17,7 +17,7 @@ const tasks = {
       isDeleted: false,
       desc: desc,
       weight: weight,
-      subDesc: childTask,
+      subDesc: [],
     };
     this.add();
   },
@@ -33,9 +33,10 @@ const tasks = {
   render: function () {
     this.element.innerHTML = "";
     this.items.forEach((item) => {
-      const li = document.createElement("li");
+      const li = document.createElement("div");
       const p = document.createElement("p");
       const div = document.createElement("div");
+      const div2 = document.createElement("div");
       const up = document.createElement("button");
       const down = document.createElement("button");
       const btn_delete = document.createElement("button");
@@ -46,20 +47,40 @@ const tasks = {
       down.innerHTML = `<i class="fa-solid fa-angle-down"></i>`;
       btn_delete.textContent = "Delete";
       btn_sub_desc.innerText = "Add";
+      li.className = "list";
 
       btn_sub_desc.onclick = () => {
-        this.subDesc(item, p);
-        btn_sub_desc.style.display = "none";
+        const sub_desc = document.createElement("textarea");
+        const btn_save = document.createElement("button");
+        const btn_cancel = document.createElement("button");
+        let index = this.items.indexOf(item);
+
+        div.style.display = "none";
+        btn_save.textContent = "Save";
+        btn_cancel.textContent = "Cancel";
+        sub_desc.style.display = "block";
+        li.append(sub_desc, btn_save, btn_cancel);
+
+        btn_save.onclick = () => {
+          this.childTask = { desc: sub_desc.value };
+          this.items[index].subDesc.push(sub_desc.value);
+          div.style.display = "flex";
+          this.render();
+        };
+
+        btn_cancel.onclick = () => {
+          sub_desc.style.display = "none";
+          btn_save.style.display = "none";
+          btn_cancel.style.display = "none";
+          div.style.display = "flex";
+        };
+
       };
+
       btn_delete.onclick = () => this.delete(p, item);
       up.onclick = () => this.moveUp(item.id);
       down.onclick = () => this.moveDown(item.id);
 
-      if (item.subDesc != undefined) {
-        const sub_desc = document.createElement("p");
-        sub_desc.innerText = item.subDesc.desc;
-        p.append(sub_desc);
-      }
       if (item.isDeleted) {
         p.style.textDecoration = "line-through";
       }
@@ -73,23 +94,19 @@ const tasks = {
 
       div.append(btn_sub_desc, up, down, btn_delete);
       li.append(p, div);
-      this.element.appendChild(li);
+      div2.append(li);
+      if (Array.isArray(item.subDesc)) {
+        const ul = document.createElement("ul");
+        item.subDesc.forEach((value) => {
+          const sli = document.createElement("li");
+          sli.textContent = value;
+          ul.append(sli);
+          div2.append(ul);
+        });
+      }
+      this.element.appendChild(div2);
     });
-  },
-  subDesc: function (item, p) {
-    const sub_desc = document.createElement("textarea");
-    const btn_save = document.createElement("button");
-    let index = this.items.indexOf(item);
 
-    btn_save.textContent = "Save";
-    sub_desc.style.display = "block";
-    p.append(sub_desc, btn_save);
-
-    btn_save.onclick = () => {
-      this.childTask = { desc: sub_desc.value };
-      this.items[index].subDesc = this.childTask;
-      this.render();
-    };
   },
   delete: function (item, task) {
     task.isDeleted = true;

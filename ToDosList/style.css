@@ -25,28 +25,33 @@ button,
 textarea,
 select {
   outline: none;
+  resize: none;
 }
 main {
   padding: 10px;
-  text-align: center;
 }
-li {
+.list {
   padding-left: 10px;
-  text-align: left;
+  list-style-type: disc;
+  text-align: left; 
   align-items: center;
   display: flex;
   justify-content: space-between;
   font-size: 1.2rem;
-  border: 1px solid rgba(128, 128, 128, 0.438);
-  margin: 10px 0;
   border-radius: 5px;
-  list-style-type: none;
 }
-li button:last-child {
+
+li{
+  margin-left: 40px;
+  justify-content: space-between;
+  font-size: 1.2rem;
+  border-radius: 5px;
+}
+.list button:last-child {
   color: crimson;
 }
 
-li button {
+.list button {
   font-size: 1.2rem;
   background-color: transparent;
   color: rgb(120, 135, 136);
