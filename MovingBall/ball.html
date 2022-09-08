@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 90vh;
+      }
+      main {
+        background-color: red;
+        width: 800px;
+        height: 400px;
+        padding: 10px;
+      }
+      .ball {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background-color: aquamarine;
+        transition: 0.7s ease-in;
+        box-shadow: inset 0px 0px 20px rgba(0, 0, 0, 0.644),
+          0px 0px 10px rgba(0, 0, 0, 0.644);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="ball"></div>
+    </main>
+    <script src="./ball.js"></script>
+  </body>
+</html>
