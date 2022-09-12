@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<style>
+    td:not(:first-child):nth-child(-n+4){
+        color: red;
+    }
+</style>
+
+<body>
+    <header>
+        <h2>User Management</h2>
+       </header>
+    <main>
+        <section>
+            <!-- form start -->
+            <form id="user_form">
+                <!-- form name input -->
+                <div>
+                    <label for="name">Your name</label>
+                    <input type="text" required name="name">
+                </div>
+                <!-- form user-name input -->
+                <div
+                    <label for="username">Your username</label>
+                    <input type="text" required name="username">
+                </div>
+                <!-- form email input -->
+                <div>
+                    <label for="email">Email address</label>
+                    <input type="email" required name="email"
+                        pattern="^[\w]{1,}[\w.+-]{0,}@[\w-]{2,}([.][a-zA-Z]{2,}|[.][\w-]{2,}[.][a-zA-Z]{2,})$"
+                        title="Invalid email address">
+                </div>
+                <!-- form phone number input -->
+                <div>
+                    <label for="number">Mobile number</label>
+                    <input type="number" required name="number" pattern="/^+91(7\d|8\d|9\d)\d{9}$/">
+                </div>
+                <!-- form password input -->
+                <div>
+                    <label for="password">Password</label>
+                    <!-- <input type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"> -->
+                </div>
+                <input type="submit" value="Register">
+                <input type="button" value="Save" style="display: none;">
+            </form>
+        </section>
+        <section>
+            <div>
+                <label for="search">Search:</label>
+                <input type="search" name="search" id="search" onkeyup="users.search()">
+            </div>
+            <table class="show-user-data">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email address</th>
+                        <th>Mobile </th>
+                        <th>Status</th>
+                        <th>Created</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <div id="output"></div>
+    <script src="./script.js"></script>
+</body>
+
+</html>

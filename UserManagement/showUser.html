@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <table class="show-user-data">
+        <thead>
+            <tr>
+                <th>SL</th>
+                <th>Name</th>
+                <th>Username</th>
+                <th>Email address</th>
+                <th>Mobile</th>
+                <th>Status</th>
+                <th>Created</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <script>
+        const user = JSON.parse(localStorage.getItem("user"));
+        list = document.querySelector("table tbody");
+        const row = this.list.insertRow(-1);
+        const sl = row.insertCell(0);
+        const name = row.insertCell(1);
+        const username = row.insertCell(2);
+        const email = row.insertCell(3);
+        const phone = row.insertCell(4);
+        const status = row.insertCell(5);
+        const created = row.insertCell(6);
+
+        sl.innerHTML = user.sl;
+        name.innerHTML = user.name;
+        username.innerHTML = user.username;
+        email.innerHTML = user.email;
+        phone.innerHTML = user.phone;
+        status.innerHTML = user.status;
+        created.innerHTML = user.created;
+    </script>
+</body>
+
+</html>
