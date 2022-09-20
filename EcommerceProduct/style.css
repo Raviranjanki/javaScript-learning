@@ -1,0 +1,544 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+input,
+button,
+select {
+  padding: 5px;
+  display: inline-block;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+hr {
+  width: 100%;
+  border: 3px solid rgba(224, 197, 158, 0.253);
+}
+
+input {
+  cursor: text;
+}
+
+input::placeholder {
+  opacity: 0.5;
+}
+
+h2,
+h1 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 500;
+}
+
+p,
+span {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+}
+
+header {
+  display: flex;
+  padding: 15px;
+  font-size: 0.8rem;
+  justify-content: space-evenly;
+  background-color: black;
+  font-weight: 200;
+}
+
+.search-phone {
+  width: 380px;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: #fff;
+}
+
+.search-phone > input {
+  flex-grow: 1;
+}
+
+.search-phone select {
+  color: #fff;
+  text-align: center;
+  background-color: rgb(14, 78, 255);
+}
+
+header > button {
+  color: #fff;
+  border-radius: 4px;
+  border: 1px solid #fff;
+  background: transparent;
+}
+
+section {
+  margin: 30px 10%;
+}
+
+.phone-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.phone-images {
+  display: grid;
+  grid-gap: 10px;
+  width: max-content;
+  min-height: 450px;
+}
+
+.phone-images img:last-child {
+  grid-area: 1 / 2 / span 3 / span 3;
+  object-fit: cover;
+}
+
+.phone-images img {
+  border-radius: 3px;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.phone-images img:hover {
+  transform: scale(1.1);
+}
+
+.phone-description > * {
+  color: grey;
+  margin: 0 4rem;
+}
+
+.phone-description h1 {
+  color: black;
+}
+
+.phone-description p {
+  line-height: 1.5;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.phone-description > div:first-of-type span:first-child {
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.phone-description form div:nth-of-type(2) div > input {
+  display: none;
+}
+
+.phone-description form div:nth-of-type(2) div {
+  display: flex;
+  justify-content: space-between;
+  width: 120px;
+}
+
+form {
+  width: 400px;
+  min-height: max-content;
+}
+form > div {
+  margin: 10px 0;
+}
+form div:nth-of-type(2) div > label {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+form div:nth-of-type(2) div > label:hover {
+  outline: 2px solid red;
+  outline-offset: 2px;
+  cursor: pointer;
+}
+
+form div:nth-of-type(2) div input[type="radio"]:checked + label {
+  outline: 2px solid red;
+  outline-offset: 2px;
+}
+
+.phone-description form div:nth-of-type(4) div {
+  display: flex;
+  justify-content: space-around;
+  padding: 0px 5px;
+  width: 150px;
+  margin: 10px 15px 0 0;
+  border-radius: 4px;
+  background-color: transparent;
+  border: 1px solid grey;
+}
+.phone-description form div:nth-of-type(4) div input {
+  background-color: transparent;
+  text-align: center;
+  min-width: 40px;
+}
+
+.phone-description form > div:nth-of-type(4) div * {
+  font-size: 1.8rem;
+  cursor: pointer;
+  margin: 0 5px;
+  user-select: none;
+  align-self: center;
+}
+
+form div:last-child {
+  display: flex;
+}
+form label {
+  margin: 10px 0;
+}
+form input[type="submit"],
+input[type="button"] {
+  display: inline-block;
+  color: #fff;
+  font-weight: 500;
+  flex: 50%;
+  margin-right: 10px;
+  border-radius: 5px;
+  padding: 12px;
+  cursor: pointer;
+}
+input[type="submit"] {
+  background-color: rgb(43, 92, 255);
+}
+input[type="submit"]:disabled,
+input[type="button"]:disabled {
+  background: #dddddd;
+}
+form input[type="button"] {
+  background-color: rgb(255, 174, 0);
+}
+
+.phone-description .color {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.phone-description > div div:first-child {
+  display: inline-block;
+  font-size: 1rem;
+}
+
+.phone-description .form {
+  margin: 30px 5rem;
+  display: flex;
+  width: 350px;
+  min-height: 400px;
+  padding: 5px 30px;
+  border-radius: 10px;
+  flex-direction: column;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.685);
+  transition: all 3s ease-in-out;
+}
+
+.phone-description form div:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+
+.phone-description form div:first-child > * {
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+.phone-description form div:first-child span {
+  font-size: 1.5rem;
+  opacity: 0.5;
+  margin: -20px -10px 0 0;
+  align-self: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+.phone-description form div:first-child span:hover {
+  opacity: 0.7;
+}
+
+.phone-description form > button {
+  font-size: 1rem;
+  margin: 30px 0;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: #fff;
+  background-color: rgb(255, 174, 0);
+}
+
+.phone-description form > input {
+  padding: 10px;
+  border-radius: 5px;
+  color: rgba(128, 128, 128, 0.729);
+  background-color: transparent;
+  border: 1px solid rgba(128, 128, 128, 0.329);
+}
+
+.phone-description .form label {
+  margin: 15px 0 10px 0;
+}
+
+.phone-description form span {
+  margin: 0 5px 0 0;
+  font-size: 0.8rem;
+}
+
+.delivery-option {
+  width: fit-content;
+}
+
+.delivery-option input {
+  display: none;
+}
+
+.delivery-option label {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  user-select: none;
+  border: 1px solid rgba(128, 128, 128, 0.329);
+}
+
+.delivery-option label:last-child {
+  margin-left: 20px;
+}
+
+.delivery-option input:checked + label {
+  border: 2px solid rgb(43, 92, 255);
+}
+
+/* similar products / about seller section */
+
+.about-seller > h2 {
+  color: grey;
+  margin: 20px 0;
+}
+.about-seller h3 {
+  display: inline-block;
+  color: black;
+  margin: 20px 0;
+  font-weight: 500;
+}
+.about-seller > h3:first-child {
+  color: grey;
+  margin-right: 20px;
+}
+.sellers-profile {
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  justify-content: space-around;
+  box-shadow: rgba(76, 79, 82, 0.103) 0px 1px 2px 0px,
+    rgba(104, 107, 109, 0.12) 0px 2px 6px 2px;
+}
+
+.about-seller button {
+  padding: 5px 30px;
+  border-radius: 50px;
+  margin: 5px 10px;
+  border: 1px solid rgb(43, 92, 255);
+}
+
+.about-seller button:first-child {
+  color: rgb(43, 92, 255);
+  background-color: transparent;
+  transition: all 300ms ease-in-out;
+}
+.about-seller button:first-child:hover {
+  color: #fff;
+  background-color: rgb(43, 92, 255);
+}
+.about-seller button:last-child {
+  color: #fff;
+  background-color: rgb(43, 92, 255);
+  transition: all 300ms ease-in-out;
+}
+.about-seller button:last-child:hover {
+  color: rgb(43, 92, 255);
+  background-color: transparent;
+}
+
+.sellers-profile > img {
+  width: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sellers-profile > * {
+  align-self: center;
+  margin: 10px;
+  line-height: 1.5rem;
+}
+
+.sellers-profile .seller-info p:first-child {
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.sellers-profile span:last-child {
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+
+.item-sold,
+.remaining-item {
+  text-align: center;
+}
+
+.similar-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  justify-content: space-around;
+}
+
+.product-card {
+  width: 230px;
+  height: fit-content;
+  border-radius: 5px;
+  margin: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+  box-shadow: rgba(76, 79, 82, 0.103) 0px 1px 2px 0px,
+    rgba(104, 107, 109, 0.12) 0px 2px 6px 2px;
+}
+
+.product-card > h2,
+span {
+  margin: 0 10px;
+  font-size: 1rem;
+}
+
+.product-card img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+}
+
+.product-card span {
+  line-height: 2rem;
+  color: rgb(43, 92, 255);
+}
+
+.product-details span {
+  font-size: 0.8rem;
+  color: grey;
+}
+
+.product-card:hover {
+  transform: scale(1.1);
+}
+
+/* features and services section */
+
+.features-container {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: 500;
+  justify-content: flex-end;
+}
+.features-container > div {
+  margin: 2rem;
+}
+.features-container h4 {
+  color: rgb(77, 71, 71);
+}
+
+.features-container a,
+.features-container p {
+  display: flex;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: grey;
+  line-height: 2rem;
+  flex-direction: column;
+}
+
+.features_list > * {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.features_list img {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.features_list a {
+  margin-right: 10px;
+  align-self: center;
+  border-radius: 50%;
+  background-color: rgba(80, 162, 255, 0.199);
+}
+
+/* footer section */
+
+footer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  color: rgb(96, 98, 136);
+  font-weight: 800;
+  justify-content: space-around;
+  background-color: rgba(179, 179, 179, 0.175);
+}
+
+svg {
+  width: 24px;
+  height: 24px;
+  margin: 10px;
+}
+
+footer * {
+  font-size: 0.8rem;
+  align-self: center;
+  opacity: 0.8;
+}
+
+/* image model */
+
+.exit {
+  color: rgb(87, 77, 77);
+  position: absolute;
+  font-size: 2rem;
+  top: 10px;
+  right: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  display: flex;
+  top: 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(49, 49, 49, 0.733);
+  background-attachment: fixed;
+}
+
+.modal img {
+  width: 20%;
+  object-fit: contain;
+  transition: all 300ms ease-in;
+}
+.modal span {
+  font-size: 2rem;
+}
+.modal span:first-of-type {
+  color: #fff;
+  z-index: 99;
+  align-self: left;
+}
+.modal span:last-child {
+  color: #fff;
+  z-index: 99;
+}
