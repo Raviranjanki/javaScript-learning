@@ -209,6 +209,7 @@ input[type="submit"] {
 input[type="submit"]:disabled,
 input[type="button"]:disabled {
   background: #dddddd;
+  cursor:not-allowed;
 }
 form input[type="button"] {
   background-color: rgb(255, 174, 0);
@@ -446,7 +447,8 @@ span {
 .features-container > div {
   margin: 2rem;
 }
-.features-container h4 {
+.features-container h3 {
+  font-size: 1.2rem;
   color: rgb(77, 71, 71);
 }
 
@@ -458,6 +460,9 @@ span {
   color: grey;
   line-height: 2rem;
   flex-direction: column;
+}
+.features-container a:hover{
+  color: rgb(80, 79, 79);
 }
 
 .features_list > * {
@@ -498,7 +503,7 @@ svg {
 footer * {
   font-size: 0.8rem;
   align-self: center;
-  opacity: 0.8;
+  opacity: 0.9;
 }
 
 /* image model */
