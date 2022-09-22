@@ -19,7 +19,7 @@ img {
   --topDown: 0px;
   --rotateX: 0;
   --rotate: 0;
-  transform: translateX(var(--x)) translateY(var(--y)) rotateY(var(--rotateX))
+  transform: translateX(var(--leftRight)) translateY(var(--topDown)) rotateY(var(--rotateX))
     rotate(var(--rotate));
   transition: transform 0.2s;
 }
