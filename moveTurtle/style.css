@@ -1,3 +1,10 @@
+:root{
+  --x: 0px;
+  --y: 0px;
+  --rotateX: 0;
+  --rotate: 0;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -15,10 +22,6 @@ img {
 }
 
 .turtle {
-  --leftRight: 0px;
-  --topDown: 0px;
-  --rotateX: 0;
-  --rotate: 0;
   transform: translateX(var(--leftRight)) translateY(var(--topDown)) rotateY(var(--rotateX))
     rotate(var(--rotate));
   transition: transform 0.2s;

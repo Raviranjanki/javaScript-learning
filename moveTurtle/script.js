@@ -36,14 +36,11 @@
     }
 
     const turtle = document.querySelector(".turtle");
-    turtle.setAttribute(
-      "style",
-      `
-            --rotateX: ${flip ? "180deg" : "0"};
-            --leftRight: ${leftRight}px;
-            --topDown: ${topDown}px;
-            --rotate: ${rotate}deg;
-            `
-    );
+    const r = document.querySelector(':root')
+
+        r.style.setProperty('--leftRight', `${leftRight}px`)
+        r.style.setProperty('--topDown', `${topDown}px`)
+        r.style.setProperty('--rotateX', `${flip ? '180deg' : '0'}`)
+        r.style.setProperty('--rotate', `${rotate}deg`)
   }
 })();
