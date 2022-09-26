@@ -2,9 +2,6 @@
     const video = document.querySelector(".webcam");
     const canvas = document.querySelector(".video");
     const ctx = canvas.getContext('2d')
-    const faceCanvas = document.querySelector(".face");
-    const faceCtx = faceCanvas.getContext('2d')
-
     const faceDetector = new window.FaceDetector();
 
     async function populatedVideo() {
@@ -17,47 +14,44 @@
         await video.play();
         canvas.width = video.videoWidth;
         canvas.height = video.videoHeight;
-        faceCanvas.width = video.videoWidth;
-        faceCanvas.height = video.videoHeight;
     }
 
-
     async function detect() {
-        const faces = await faceDetector.detect(video);
+        const faces = await faceDetector.detect(video, false);
         faces.forEach(drawFace)
+        console.log(faces);
         requestAnimationFrame(detect)
     }
     function drawFace(face) {
-        const { width, height, top, left } = face.boundingBox;
-        ctx.strokeRect(left, top, width, height);
+        const { width, height, x, y } = face.boundingBox;
+        ctx.strokeRect(x, y, width, height);
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctx.strokeStyle = "black";
         ctx.lineWidth = 2;
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
         censor(face)
     }
     populatedVideo().then(detect)
 
     function censor({ boundingBox: face }) {
-        faceCtx.imageSmoothingEnabled = false
+        ctx.imageSmoothingEnabled = false;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        const SIZE = 500;
         const options = {
-            SIZE: 10,
-            SCALE: 1.35
+            SCALE: 1
         }
         const width = face.width * options.SCALE;
         const height = face.height * options.SCALE;
-        faceCtx.clearRect(0, 0, faceCanvas.width, faceCanvas.height)
-        faceCtx.drawImage(
-            faceCanvas,
-            face.x,
-            face.y,
-            options.SIZE,
-            options.SIZE,
-            // drawing args
+        ctx.drawImage(
+            video,
+            face.x - 80,
+            face.y - 70,
+            SIZE,
+            SIZE,
             face.x - (width - face.width) / 2,
             face.y - (height - face.height) / 2,
             width,
             height
         );
-
     }
 })()
