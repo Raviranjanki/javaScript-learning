@@ -1,41 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="text/javascript"
+      src="https://canvasjs.com/assets/script/canvasjs.stock.min.js"
+    ></script>
+  </head>
 
-<body>
+  <body>
     <header>
-
+      <nav>
+        <ul>
+          <li><a href="#">Coins</a></li>
+          <li><a href="#">Exchanges</a></li>
+          <li><a href="#">Swap</a></li>
+        </ul>
+        <img src="./images/logo.png" alt="logo.png" />
+        <div>
+          <input type="search" class="search" placeholder="Search..." />
+          <button type="button">Connect Wallet</button>
+        </div>
+      </nav>
     </header>
     <main>
-        <table class="show-user-data">
-            <thead>
-                <th>Rank</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Market Cap</th>
-                <th>VWAP (24Hr)</th>
-                <th>Supply</th>
-                <th>Volume (24Hr)</th>
-                <th>Change (24Hr)</th>
-            </thead>
-            <tbody>
-
-            </tbody>
-        </table>
-        <button type="button" class="read-more">View More</button>
-        <!-- <canvas height="219" width="438" style="display: block; width: 438px; height: 219px;" class="chartjs-render-monitor"></canvas> -->
+      <table class="show-user-data">
+        <thead>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Market Cap</th>
+          <th>VWAP (24Hr)</th>
+          <th>Supply</th>
+          <th>Volume (24Hr)</th>
+          <th>Change (24Hr)</th>
+        </thead>
+        <tbody></tbody>
+      </table>
+          <div class="loader">
+            <span>Loading...</span>
+            <div class="line"></div>
+          </div>
+      <button type="button" class="view-more">View More</button>
     </main>
     <script src="script.js"></script>
-</body>
-
+  </body>
 </html>

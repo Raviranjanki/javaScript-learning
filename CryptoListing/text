@@ -1,0 +1,62 @@
+var data = []; var dataSeries = { type: "spline" };
+            console.log('l');
+            var stockChart = new CanvasJS.StockChart("chartContainer", {
+                title: {
+                    text: "StockChart with Numeric Axis"
+                },
+                animationEnabled: true,
+                exportEnabled: true,
+                charts: [{
+                    axisX: {
+                        crosshair: {
+                            enabled: true,
+                            snapToDataPoint: true
+                        }
+                    },
+                    axisY: {
+                        crosshair: {
+                            enabled: true,
+                            snapToDataPoint: true
+                        }
+                    },
+                    data: data
+                }],
+                rangeSelector: {
+                    inputFields: {
+                        startValue: 4000,
+                        endValue: 6000,
+                        valueFormatString: "###0"
+                    },
+
+                    buttons: [{
+                        label: "1000",
+                        range: 1000,
+                        rangeType: "number"
+                    }, {
+                        label: "2000",
+                        range: 2000,
+                        rangeType: "number"
+                    }, {
+                        label: "5000",
+                        range: 5000,
+                        rangeType: "number"
+                    }, {
+                        label: "All",
+                        rangeType: "all"
+                    }]
+                }
+            });
+
+            var dataPoints = [];
+
+            for (var i = 0; i < 10; i += 1) {
+                dataPoints.push({
+                    x: history[i].time,
+                    y: Number(history[i].priceUsd)
+                });
+            }
+            dataSeries.dataPoints = dataPoints;
+            data.push(dataSeries);
+            console.log(data);
+
+            await stockChart.render();
