@@ -8,32 +8,21 @@ header {
   background-color: rgb(113, 113, 219);
 }
 
-nav,
-ul {
+nav {
   display: flex;
   align-items: center;
-  padding: 20px auto;
   font-size: 0.9rem;
   font-weight: 400;
   justify-content: space-around;
   background-color: #fff;
   font-family: "Roboto", sans-serif;
 }
-nav li,
-a {
-  display: block;
-  margin: 10px;
-  color: black;
-  list-style: none;
-  text-decoration: none;
-}
 nav img {
   width: 80px;
 }
-nav div * {
-  margin: 0 10px;
-}
+
 nav .search {
+  margin: 10px;
   padding: 3px;
   border: 1px solid rgba(128, 128, 128, 0.664);
   border-radius: 3px;
@@ -100,6 +89,7 @@ table {
 .show-user-data td:first-child {
   text-align: center;
 }
+
 .show-user-data td,
 .show-user-data th {
   font-weight: normal;
@@ -107,7 +97,6 @@ table {
   padding: 10px;
   overflow: hidden;
 }
-
 .show-user-data td {
   width: fit-content;
   white-space: nowrap;
@@ -131,31 +120,28 @@ table {
   cursor: pointer;
 }
 .loader {
-  margin: 5px 0;
-  display: none;
-  padding: 2px;
-  width: 100%;
-  border: 2px solid rgb(24, 198, 131);
-  border-radius: 20px;
-  overflow: hidden;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
 }
-.loader span {
-  color: #fff;
-  margin: 0 10px;
-  font-size: .6rem;
+.circle {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid rgb(24, 198, 131);
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
 }
-.loader .line {
-  width: 100px;
-  height: 10px;
-  border-radius: 20px;
-  background-color: #fff;
-  animation: loading 2s linear infinite;
+.error {
+  color: grey;
+  font-size: 1.5rem;
 }
-@keyframes loading {
-  0%{
-    margin-left: -120px;
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  100%{
-    margin-left: 100%
+  100% {
+    transform: rotate(360deg);
   }
 }

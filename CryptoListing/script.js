@@ -6,7 +6,9 @@
         chart: document.createElement("div"),
         chartContainer: document.createElement("td"),
         loader: document.querySelector('.loader'),
-        data: 20,
+        URL: "https://api.coincap.io/v2/assets/",
+        limit: 5,
+        initialLimit: 5,
         searchBy: '',
         async fetch(URL) {
             try {
@@ -17,38 +19,56 @@
                 if (!response.ok) {
                     throw new Error(`Failed to  fetch data: ${response.status}`);
                 }
-                this.loader.style.display = 'none';
                 const jsonResponse = await response.json();
+                this.loader.style.display = 'none';
                 return jsonResponse.data;
             } catch (error) {
-                console.log(error);
+                this.error404();
+                this.loader.style.display = 'none';
             }
         },
-        async getCoins() {
-            const URL = "https://api.coincap.io/v2/assets";
+        async getCoins(URL) {
             try {
                 const coins = await this.fetch(URL);
                 this.searchBy = coins;
-                const coinsl = coins.slice(0, this.data);
-                this.list.innerHTML = "";
-                coinsl.forEach((coin) => {
-                    this.render(coin);
-                });
+                this.render(coins)
             } catch (error) {
-                console.log("Nothing to Show!", error);
+                console.log("Nothing to Show!");
             }
         },
-        render(coin) {
+        error404() {
             const NEXT = -1;
-            row = this.list.insertRow(NEXT);
-            row.insertCell(NEXT).textContent = coin.rank;
-            row.insertCell(NEXT).append(this.createName(coin.name, coin.symbol));
-            row.insertCell(NEXT).textContent = `${this.numberToCurrency(coin.priceUsd)}`;
-            row.insertCell(NEXT).textContent = `${this.convertTo(coin.marketCapUsd)}`;
-            row.insertCell(NEXT).textContent = `${this.numberToCurrency(coin.vwap24Hr)}`;
-            row.insertCell(NEXT).textContent = `${this.convertTo(coin.supply)}`;
-            row.insertCell(NEXT).textContent = `${this.convertTo(coin.volumeUsd24Hr)}`;
-            row.insertCell(NEXT).textContent = `${Number(coin.changePercent24Hr).toFixed(2)}%`;
+            this.list.innerHTML = '';
+            const row = this.list.insertRow(NEXT);
+            const error = row.insertCell(NEXT)
+            const image = document.createElement('img');
+            image.src = 'images/nothing.JPG';
+            image.alt = 'Nothing to show';
+            error.append(image);
+            error.colSpan = '8';
+            error.classList.add('error')
+        },
+        render(coins) {
+            const coinsl = coins.slice(0, this.limit);
+            this.list.innerHTML = "";
+            coinsl.forEach((coin) => {
+                const NEXT = -1;
+                row = this.list.insertRow(NEXT);
+                row.insertCell(NEXT).textContent = coin.rank;
+                row.insertCell(NEXT).append(this.createName(coin.name, coin.symbol));
+                row.insertCell(NEXT).textContent = `${this.numberToCurrency(coin.priceUsd)}`;
+                row.insertCell(NEXT).textContent = `${this.convertTo(coin.marketCapUsd)}`;
+                row.insertCell(NEXT).textContent = `${this.numberToCurrency(coin.vwap24Hr)}`;
+                row.insertCell(NEXT).textContent = `${this.convertTo(coin.supply)}`;
+                row.insertCell(NEXT).textContent = `${this.convertTo(coin.volumeUsd24Hr)}`;
+                const last = row.insertCell(NEXT)
+                last.textContent = `${Number(coin.changePercent24Hr).toFixed(2)}%`;
+                if (Math.sign(coin.changePercent24Hr) < 0) {
+                    last.style.color = 'red';
+                } else {
+                    last.style.color = 'green'
+                }
+            });
         },
         numberToCurrency(number) {
             number = Number(number);
@@ -89,36 +109,54 @@
             container.append(img, containerText);
             return container;
         },
-        listCoin() {
-            if (!this.viewMore) return;
-            this.getCoins();
-            this.viewMore.addEventListener("click", () => {
-                this.data = this.data + 20;
-                this.getCoins("https://api.coincap.io/v2/assets");
-            });
-            this.graph();
-
+        search(value) {
             if (!this.searchBox) return;
             let coinToBeSearched;
-            this.searchBox.addEventListener('keyup', (e) => {
-                coinToBeSearched = e.target.value.toUpperCase();
+            const searchMore = () => {
                 if (this.searchBy) {
+                    let searched = [];
                     this.list.innerHTML = ''
-                    this.searchBy.forEach(coin => {
+                    this.searchBy.forEach((coin) => {
                         if (coin.name.toUpperCase().includes(coinToBeSearched)) {
-                            this.render(coin)
+                            searched.push(coin);
+                            searched = [... new Set(searched)];
                         }
                     })
-                    if (coinToBeSearched == '') {
-                        this.getCoins()
+                    if (this.searchBox.value == '') {
+                        this.limit = this.initialLimit;
+                        this.getCoins(this.URL)
                     }
+                    this.render(searched)
                 }
+            }
+            if (value) {
+                coinToBeSearched = value.toUpperCase();
+                searchMore();
+            }
+            this.searchBox.addEventListener('keyup', (e) => {
+                coinToBeSearched = e.target.value.toUpperCase();
+                searchMore()
             })
         },
+        listCoin() {
+            if (!this.viewMore) return;
+            this.getCoins(this.URL);
+            this.viewMore.addEventListener("click", () => {
+                this.limit = this.limit + 5;
+                if (!this.searchBox.value) {
+                    this.initialLimit = this.limit;
+                    this.getCoins(this.URL);
+                }
+                this.search(this.searchBox.value);
+            });
+            this.graph();
+            this.search()
+        },
         async creatingChart(div, id) {
-            const history = await this.fetch(`https://api.coincap.io/v2/assets/${id}/history?interval=m1`);
+            const history = await this.fetch(`${this.URL}${id}/history?interval=m1`);
+            if (!history) return;
             var dataPoints = [];
-            var chart = new CanvasJS.Chart(div, {
+            var chart = await new CanvasJS.Chart(div, {
                 theme: "light2",
                 animationEnabled: true,
                 zoomEnabled: true,
@@ -138,11 +176,10 @@
                 ],
             });
 
-            const data = history
-            for (var i = 0; i < data.length; i++) {
+            for (var i = 0; i < history.length; i++) {
                 dataPoints.push({
-                    x: data[i].time,
-                    y: Number(data[i].priceUsd),
+                    x: history[i].time,
+                    y: Number(history[i].priceUsd),
                 });
             }
             chart.render();
@@ -152,6 +189,7 @@
             this.chartContainer.colSpan = "8";
             this.chart.id = "chartContainer";
             this.list.addEventListener("click", (e) => {
+                this.chartContainer.style.opacity = '0'
                 if (e.target.tagName == 'TD') {
                     const activeElem = e.target.parentElement;
                     const searchCoin = activeElem.firstElementChild.innerHTML;
@@ -161,6 +199,11 @@
                     activeElem.classList.toggle("visible");
                     if (activeElem.classList.contains("visible")) {
                         activeElem.insertAdjacentElement("afterend", this.chartContainer);
+                        this.loader.style.display = 'flex';
+                        setTimeout(() => {
+                            this.chartContainer.style.opacity = '1';
+                            this.loader.style.display = 'none';
+                        }, 2000);
                     } else {
                         this.chartContainer.remove();
                     }
@@ -171,5 +214,5 @@
     // setInterval(() => {
     //     console.log('k');
     crypto.listCoin();
-    // }, 1000);
+    // }, 5000);
 })();
