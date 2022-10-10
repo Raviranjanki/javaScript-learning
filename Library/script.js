@@ -1,10 +1,10 @@
 (() => {
    class Library {
-       constructor() {
-           this.books;
+       constructor(books) {
+           this.books = books ;
        }
        availableBooks() {
-           return this.books.filter((book) => book.inStock && book.inStock != 0);
+           return this.books.filter((book) => book.inStock && book.inStock > 0);
        }
        allBookedBooks() {
            return this.books.filter((book) => book.reading);
@@ -75,7 +75,7 @@
                    title: "Romeo and Juliet",
                    author: "William Shakespire",
                    ISBN: 4129,
-                   inStock: 1,
+                   inStock: -1,
                    bookPlacement: "Art|200|2",
                    reading: 0,
                    borrowed: 0,
@@ -113,5 +113,5 @@
    // art.borrowBook('Love is Bitter', 'Ariana Grande');
    // art.borrowBook('Romeo and Juliet', 'William Shakespeare');
    // art.returnBorrowedBooks(4029, 1);
-   console.log(art.allBorrowedBooks());
+   console.log(art.availableBooks());
 })();
